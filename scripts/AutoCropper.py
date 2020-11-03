@@ -3,6 +3,14 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
+# allow for device input, comment out to use shortcut
+#directory = input("Enter directory path: ")
+#os.chdir(directory)
+#shortcut - change directory to the path of folder holding images
+os.chdir(r"C:\Users\joekh\Documents\GitHub\ML-Breat_Cancer_Classfier\images\Photos for Testing\CroppedImages Malignant\\")
+
+
+
 jpgImages = glob.glob("*.jpg")
 pngImages = glob.glob("*.png")
 images = jpgImages + pngImages

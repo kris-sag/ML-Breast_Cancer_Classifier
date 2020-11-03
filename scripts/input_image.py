@@ -22,7 +22,11 @@ from PIL import Image
 
 
 #repo_dir = 'C:\\Users\MP_lab_GPU\Desktop\Senior Design 2019\Senior Design\'
-repo_dir = '/Users/bencohen/OneDrive/Documents/Rutgers/repo/'
+
+# CHANGE THIS DIRECTORY TO THE ML BREAST CANCER TOTAL FILES FOLDER
+repo_dir = r'C:\Users\joekh\Documents\GitHub\ML-Breat_Cancer_Classfier\\'
+
+
 #%%
 imsize = 256
 loader = transforms.Compose([
@@ -45,10 +49,13 @@ num_ftrs = model.fc.in_features
 
 model.fc = nn.Linear(num_ftrs, 2)
 
-model.load_state_dict(torch.load("C:\\Users\\MP_lab_GPU\\Desktop\\Senior Design 2019\\model\\cellphone_model_state_dict.pt"))
+#CHANGE PATH TO MODEL PATH, CHANGE MAP LOCATION BASED ON GPU
+model.load_state_dict(torch.load(r"C:\Users\joekh\Documents\GitHub\ML-Breat_Cancer_Classfier\model\model_state_dict.pt",map_location=torch.device('cpu')))
 model.eval()
-malignant_path = 'C:\\Users\\MP_lab_GPU\\Desktop\\Senior Design 2019\\images\\Photos_for_Testing\\CroppedImages_Malignant\\'
-non_malignant_path = 'C:\\Users\\MP_lab_GPU\\Desktop\\Senior Design 2019\\images\\Photos_for_Testing\\CroppedImages_Non_Malignant\\'
+#CHANGE PATH LOCATION TO FOLDER WITH CROPPED MALIGNANT IMAGES
+malignant_path = r'C:\Users\joekh\Documents\GitHub\ML-Breat_Cancer_Classfier\images\Photos for Testing\CroppedImages Malignant\\'
+#CHANGE PATH LOCATION TO FOLDER WITH CROPPED NONMALIGNANT IMAGES
+non_malignant_path = r'C:\Users\joekh\Documents\GitHub\ML-Breat_Cancer_Classfier\images\Photos for Testing\CroppedImages Non_Malignant\\'
 
 #%%
 #### THE FIRST ARGUMENT IS BENIGN, SECOND IS MALIGNANT
@@ -86,7 +93,11 @@ for i in os.listdir(non_malignant_path):
     except:
         errors +=1
 
-    
+print("False Negatives: "+tp)
+print("False Negatives: "+tn)
+print("False Negatives: "+fp)
+print("False Negatives: "+fn)
+print("Total Number of images: "+str(len(tp)+len(tn)+len(fp)+len(fn)))
             
     
     
