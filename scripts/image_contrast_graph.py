@@ -18,7 +18,7 @@ import os
 #name = input("Enter image name: ")
 
 #shortcut - change "directory", change file "name"
-directory = r"C:\Users\joekh\Documents\GitHub\ML-Breat_Cancer_Classfier\images\contrast_images"
+directory = r"C:\Users\Kris\..vs code files\senior design\ML-Breat_Cancer_Classfier-master\images\contrast_images"
 os.chdir(directory)
 name = 'clear'
 

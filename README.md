@@ -3,8 +3,9 @@ Classification of breast cancer pathology slide images as benign or malignant us
 
 # Scripts
 • Resnet.py - train a neural network on a set of images. This same script was used for all models, just by switching the models line (ie: models.vgg16, models.resnet152, etc.)
+• crossval.py - modified version of Resnet.py file that incorporates cross validation, need to address weight leakage
 • Autocropper.py - Code to crop images taken from microscope. Changes the black exterior to white. 
-• divide_images.py - Randomly dicide a folder of images into testing, training, validation (used 15:70:15).
+• divide_images.py - Randomly divide a folder of images into testing, training, validation (used 15:70:15).
 • input_image.py - Determine TP, TN, FP, FN and total accuracy of trained model. 
 • image_contrast_graphs.py - Create a graph quanitfiying the contrast of the black and white images
 

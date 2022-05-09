@@ -5,7 +5,7 @@ Created on Tue Sep 24 20:18:02 2019
 @author: bcohe
 """
 
-
+#%%
 from __future__ import print_function, division
 
 import torch
@@ -148,28 +148,38 @@ def visualize_model(model, num_images=6):
                     model.train(mode=was_training)
                     return model.train(mode=was_training)
     
-    #%%
+    
+#%%
 # Data augmentation and normalization for training
 # Just normalization for validation
 
 if __name__ == "__main__":
     
+    # note: i did not use randomresized crop as some data typically have a black circle encompassing
+    # the slides from the microscope. To normalize this, I cropped around the center. - Kris
     data_transforms = {
         'train': transforms.Compose([
-            transforms.RandomSizedCrop(224),
+            transforms.Resize(256),
+            transforms.CenterCrop(224),
+            transforms.RandomResizedCrop(224),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]),
         'val': transforms.Compose([
-            transforms.Scale(256),
+            # transforms.Resize(256),
+            # transforms.CenterCrop(224),
+            transforms.Resize(256),
             transforms.CenterCrop(224),
+            transforms.RandomResizedCrop(224),
+            transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ]),
     }
     
-    data_dir = 'C:\\Users\\MP_lab_GPU\\Desktop\\Senior Design 2019\\images\\BreaKHis_with_cellphone'
+    # DATA DIRECTORY
+    data_dir = 'C:\\Users\\Kris\\..vs code files\\senior design\\images\\data-final'
     image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                               data_transforms[x])
                       for x in ['train', 'val']}
@@ -190,7 +200,8 @@ if __name__ == "__main__":
 #    
     
     model_ft = models.vgg16(pretrained=True)
-   # num_ftrs = model_ft.fc.in_features
+    # model_ft = models.resnet152(pretrained=True)
+    # num_ftrs = model_ft.fc.in_features
     # Here the size of each output sample is set to 2.
     # Alternatively, it can be generalized to nn.Linear(num_ftrs, len(class_names)).
     #model_ft.fc = nn.Linear(num_ftrs, 2)
@@ -217,7 +228,7 @@ if __name__ == "__main__":
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
     plt.title('Loss')
-    plt.savefig('C:\\Users\\MP_lab_GPU\\Desktop\\Senior Design 2019\\graphs\\vgg_loss.png')
+    plt.savefig('C:\\Users\\Kris\\..vs code files\\senior design\\ML-Breat_Cancer_Classfier-master\\results\\graphs\\4-20_vgg_loss2.png')
     
     plt.figure()
     plt.plot(x, va, ta)
@@ -225,7 +236,7 @@ if __name__ == "__main__":
     plt.xlabel('Epochs')
     plt.ylabel('Percentage')
     plt.title('Accuracy')
-    plt.savefig('C:\\Users\\MP_lab_GPU\\Desktop\\Senior Design 2019\\graphs\\vgg_accuracy.png')
+    plt.savefig('C:\\Users\\Kris\\..vs code files\\senior design\\ML-Breat_Cancer_Classfier-master\\results\\graphs\\4-20_vgg_accuracy2.png')
     
     
  #%%   
@@ -233,10 +244,11 @@ if __name__ == "__main__":
     out_data = pd.DataFrame([vl, va, tl, ta])
     out_data = out_data.T
     out_data.columns = ['val_loss', 'val_acc', 'train_loss', 'train_acc']
-    out_data.to_csv("C:\\Users\\MP_lab_GPU\\Desktop\\Senior Design 2019\\model\\vgg_training_data.txt", sep = '\t', index = False)
+    out_data.to_csv("C:\\Users\\Kris\\..vs code files\\senior design\\ML-Breat_Cancer_Classfier-master\\results\\graphs\\4-20_vgg_training_data2.txt", sep = '\t', index = False)
     
     #%%
     
-    torch.save(model_ft,"C:\\Users\\MP_lab_GPU\\Desktop\\Senior Design 2019\\model\\vgg_model.pt")
+    torch.save(model_ft,"C:\\Users\\Kris\\..vs code files\\senior design\\ML-Breat_Cancer_Classfier-master\\model\\4-20_vgg_model2.pt")
     
-    torch.save(model_ft.state_dict(),"C:\\Users\\MP_lab_GPU\\Desktop\\Senior Design 2019\\model\\vgg_model_state_dict.pt")
+    torch.save(model_ft.state_dict(),"C:\\Users\\Kris\\..vs code files\\senior design\\ML-Breat_Cancer_Classfier-master\\model\\4-20_vgg_model_state_dict2.pt")
+# %%

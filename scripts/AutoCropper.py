@@ -1,3 +1,4 @@
+#%%
 import os, glob
 import cv2
 import numpy as np
@@ -7,7 +8,7 @@ from matplotlib import pyplot as plt
 #directory = input("Enter directory path: ")
 #os.chdir(directory)
 #shortcut - change directory to the path of folder holding images
-os.chdir(r"C:\Users\joekh\Documents\GitHub\ML-Breat_Cancer_Classfier\images\Photos for Testing\CroppedImages Malignant\\")
+os.chdir(r"C:\Users\Kris\..vs code files\senior design\ML-Breat_Cancer_Classfier-master\images\Photos for Testing\img_to_crop\Not_Cancer\\")
 
 
 
@@ -60,3 +61,5 @@ for imageFile in images:
     cv2.imwrite(imageFile, outImage)
 
 
+
+# %%
